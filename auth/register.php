@@ -7,7 +7,7 @@ require_once '../db/db.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    header("Location: /Velo-Rapido-rental/index.php");
+    header("Location: /velo-rapido/index.php");
     exit();
 }
 

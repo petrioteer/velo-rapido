@@ -17,6 +17,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirect to login page
-header("Location: /Velo-Rapido-rental/auth/login.php");
+header("Location: /velo-rapido/auth/login.php");
 exit();
 ?>

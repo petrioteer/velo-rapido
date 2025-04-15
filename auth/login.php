@@ -7,7 +7,7 @@ require_once '../db/db.php';
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    header("Location: /Velo-Rapido-rental/index.php");
+    header("Location: /velo-rapido/index.php");
     exit();
 }
 
@@ -37,9 +37,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 // Redirect based on user role
                 if ($user['role'] === 'admin') {
-                    header("Location: /Velo-Rapido-rental/admin/dashboard.php");
+                    header("Location: /velo-rapido/admin/dashboard.php");
                 } else {
-                    header("Location: /Velo-Rapido-rental/index.php");
+                    header("Location: /velo-rapido/index.php");
                 }
                 exit();
             } else {
