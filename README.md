@@ -173,7 +173,7 @@ The database consists of several interconnected tables:
 To access the admin panel, use these credentials:
 
 - **Email**: <admin@velorapido.com>
-- **Password**: admin123
+- **Password**: admin@123
 
 ## 🤝 Contributing
 
