@@ -8,10 +8,6 @@ $admins = [
     [
         'email' => 'admin@velorapido.com',
         'password' => 'admin@123'
-    ],
-    [
-        'email' => 'admin@velo.com',
-        'password' => 'admin@123'
     ]
 ];
 
