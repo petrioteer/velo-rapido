@@ -1,8 +1,6 @@
+.env
+.vercel
+.vercel_init_completed
 .git
 .github
-.gitignore
-README.md
-LICENSE
-*.log
 node_modules
-vendor

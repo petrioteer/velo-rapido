@@ -11,6 +11,28 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// One-time initialization check for Vercel environment
+$initLogFile = dirname(__DIR__) . '/.vercel_init_completed';
+if (!file_exists($initLogFile) && isset($_SERVER['VERCEL_REGION'])) {
+    // This is running on Vercel and initialization hasn't been done yet
+    try {
+        require_once dirname(__DIR__) . '/db/db.php';
+        // Check if tables exist and create them if they don't
+        $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+        
+        if (empty($tables)) {
+            // No tables found, import the schema
+            require_once dirname(__DIR__) . '/setup_database.php';
+        }
+        
+        // Mark initialization as completed
+        file_put_contents($initLogFile, date('Y-m-d H:i:s'));
+    } catch (PDOException $e) {
+        // Log the error but continue to allow the site to function
+        error_log('Vercel initialization error: ' . $e->getMessage());
+    }
+}
+
 // Get the request URI from Vercel
 $uri = $_SERVER['REQUEST_URI'];
 
