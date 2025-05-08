@@ -13,6 +13,7 @@ Velo Rapido is a comprehensive web-based bike rental management system designed 
 - [Project Structure](#-project-structure)
 - [Tech Stack](#-tech-stack)
 - [Installation & Setup](#-installation--setup)
+- [Vercel Deployment](#-vercel-deployment)
 - [Database Structure](#-database-structure)
 - [User Roles](#-user-roles)
 - [Screenshots](#-screenshots)
@@ -92,6 +93,8 @@ pages/                    # User-facing pages
 
 ## 🚀 Installation & Setup
 
+### Local Setup
+
 ### Prerequisites
 
 - [XAMPP](https://www.apachefriends.org/download.html) with PHP 8.0+ and MySQL
@@ -139,6 +142,54 @@ pages/                    # User-facing pages
    ```
 
 2. The application should now be running and accessible from your browser
+
+### 🌐 Vercel Deployment
+
+To deploy Velo Rapido on Vercel with FreeSQLDatabase:
+
+#### Step 1: Set Up FreeSQLDatabase
+
+1. Create an account on [FreeSQLDatabase](https://www.freesqldatabase.com/)
+2. Create a new database and note your credentials
+3. Import your database schema using one of these methods:
+   - Use the phpMyAdmin interface provided by FreeSQLDatabase
+   - Run `setup_database.php` script after updating credentials
+
+#### Step 2: Install Vercel CLI
+
+```bash
+npm install -g vercel
+```
+
+#### Step 3: Configure Vercel Deployment
+
+1. Login to Vercel:
+
+```bash
+vercel login
+```
+
+2. Deploy to Vercel:
+
+```bash
+vercel
+```
+
+3. When prompted, set up the following environment variables:
+   - `DB_HOST` (Your FreeSQLDatabase host)
+   - `DB_NAME` (Your FreeSQLDatabase name)
+   - `DB_USER` (Your FreeSQLDatabase username)
+   - `DB_PASS` (Your FreeSQLDatabase password)
+
+4. After deployment, your app will be available at the Vercel-provided URL
+
+#### Step 4: Configure Production Settings
+
+1. Go to the Vercel dashboard
+2. Select your project
+3. Go to Settings > Environment Variables
+4. Add the same environment variables you used locally
+5. Set `APP_ENV=production`
 
 ## 🗄️ Database Structure
 

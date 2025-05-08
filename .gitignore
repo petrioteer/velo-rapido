@@ -1,0 +1,20 @@
+# Dependency directories
+/vendor/
+/node_modules/
+
+# Environment variables
+.env
+
+# Vercel related
+.vercel/
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.dist
+
+# OS generated files
+.DS_Store
+Thumbs.db

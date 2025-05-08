@@ -4,10 +4,10 @@
  */
 
 // Database connection parameters
-$host = 'localhost';
-$db = 'velo_rapido';
-$user = 'root';
-$pass = '';
+$host = getenv('DB_HOST') ?: 'sql12.freesqldatabase.com';
+$db = getenv('DB_NAME') ?: 'sql12777605';
+$user = getenv('DB_USER') ?: 'sql12777605';
+$pass = getenv('DB_PASS') ?: 'JUBzq4E64M';
 $charset = 'utf8mb4';
 
 // DSN (Data Source Name)
@@ -35,6 +35,36 @@ function sanitize($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data, ENT_QUOTES, 'UTF-8');
     return $data;
+}
+
+// New helper function for updating records
+function updateRecord($pdo, $table, $data, $whereColumn, $whereValue) {
+    // Add updated_at to the data if the column exists in the table
+    try {
+        $columns = $pdo->query("SHOW COLUMNS FROM $table")->fetchAll(PDO::FETCH_COLUMN);
+        if (in_array('updated_at', $columns)) {
+            $data['updated_at'] = date('Y-m-d H:i:s');
+        }
+    } catch (PDOException $e) {
+        // If the table doesn't exist or columns can't be fetched, continue without updated_at
+    }
+    
+    // Build the SET clause
+    $setClauses = [];
+    $params = [];
+    foreach ($data as $column => $value) {
+        $setClauses[] = "$column = :$column";
+        $params[":$column"] = $value;
+    }
+    $setClause = implode(', ', $setClauses);
+    
+    // Add WHERE parameter
+    $params[":whereValue"] = $whereValue;
+    
+    // Build and execute the query
+    $sql = "UPDATE $table SET $setClause WHERE $whereColumn = :whereValue";
+    $stmt = $pdo->prepare($sql);
+    return $stmt->execute($params);
 }
 
 // Authentication helper functions

@@ -1,0 +1,8 @@
+.git
+.github
+.gitignore
+README.md
+LICENSE
+*.log
+node_modules
+vendor
