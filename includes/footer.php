@@ -14,10 +14,10 @@
                 <div>
                     <h3 class="text-lg font-semibold mb-4 text-purple-200">Quick Links</h3>
                     <ul class="space-y-2">
-                        <li><a href="/velo-rapido/index.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Home</a></li>
-                        <li><a href="/velo-rapido/pages/fleet.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Our Fleet</a></li>
-                        <li><a href="/velo-rapido/auth/register.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Register</a></li>
-                        <li><a href="/velo-rapido/auth/login.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Login</a></li>
+                        <li><a href="<?php echo $baseUrl; ?>/index.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Home</a></li>
+                        <li><a href="<?php echo $baseUrl; ?>/pages/fleet.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Our Fleet</a></li>
+                        <li><a href="<?php echo $baseUrl; ?>/auth/register.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Register</a></li>
+                        <li><a href="<?php echo $baseUrl; ?>/auth/login.php" class="text-purple-200 dark:text-purple-300 hover:text-white">Login</a></li>
                     </ul>
                 </div>
                 

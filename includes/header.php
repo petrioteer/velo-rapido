@@ -7,6 +7,20 @@ if (session_status() == PHP_SESSION_NONE) {
 // Include database connection
 require_once __DIR__ . '/../db/db.php';
 
+// Helper function to get base URL for Vercel deployment
+function getBaseUrl() {
+    // For Vercel deployment
+    if (isset($_SERVER['VERCEL_URL'])) {
+        return 'https://' . $_SERVER['VERCEL_URL'];
+    }
+    
+    // For local development, keep original path
+    return '/velo-rapido';
+}
+
+// Get base URL
+$baseUrl = getBaseUrl();
+
 // Check if the current page is in the admin directory
 $isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
 ?>
@@ -47,7 +61,7 @@ $isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/velo-rapido/assets/css/style.css">
+    <link rel="stylesheet" href="<?php echo $baseUrl; ?>/assets/css/style.css">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
     <!-- Navigation -->
@@ -55,7 +69,7 @@ $isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
         <div class="container mx-auto px-6 md:px-12">
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
-                <a href="/velo-rapido/index.php" class="flex items-center space-x-3">
+                <a href="<?php echo $baseUrl; ?>/index.php" class="flex items-center space-x-3">
                     <i class="fas fa-bicycle text-2xl text-purple-700 dark:text-purple-400"></i>
                     <span class="text-xl font-bold text-purple-800 dark:text-purple-300">Velo Rapido</span>
                 </a>
@@ -64,29 +78,29 @@ $isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
                 <div class="hidden md:flex space-x-6">
                     <?php if ($isAdminPage): ?>
                         <!-- Admin Navigation -->
-                        <a href="/velo-rapido/admin/dashboard.php" class="hover:text-purple-600 dark:hover:text-purple-300">Dashboard</a>
-                        <a href="/velo-rapido/admin/bikes/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Manage Bikes</a>
-                        <a href="/velo-rapido/admin/maintenance/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Maintenance</a>
-                        <a href="/velo-rapido/admin/users/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Users</a>
-                        <a href="/velo-rapido/admin/reports/damages.php" class="hover:text-purple-600 dark:hover:text-purple-300">Damage Reports</a>
-                        <a href="/velo-rapido/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Back to Site</a>
-                        <a href="/velo-rapido/auth/logout.php" class="hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
+                        <a href="<?php echo $baseUrl; ?>/admin/dashboard.php" class="hover:text-purple-600 dark:hover:text-purple-300">Dashboard</a>
+                        <a href="<?php echo $baseUrl; ?>/admin/bikes/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Manage Bikes</a>
+                        <a href="<?php echo $baseUrl; ?>/admin/maintenance/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Maintenance</a>
+                        <a href="<?php echo $baseUrl; ?>/admin/users/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Users</a>
+                        <a href="<?php echo $baseUrl; ?>/admin/reports/damages.php" class="hover:text-purple-600 dark:hover:text-purple-300">Damage Reports</a>
+                        <a href="<?php echo $baseUrl; ?>/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Back to Site</a>
+                        <a href="<?php echo $baseUrl; ?>/auth/logout.php" class="hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
                     <?php else: ?>
                         <!-- Regular Navigation -->
-                        <a href="/velo-rapido/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Home</a>
-                        <a href="/velo-rapido/pages/fleet.php" class="hover:text-purple-600 dark:hover:text-purple-300">Our Fleet</a>
+                        <a href="<?php echo $baseUrl; ?>/index.php" class="hover:text-purple-600 dark:hover:text-purple-300">Home</a>
+                        <a href="<?php echo $baseUrl; ?>/pages/fleet.php" class="hover:text-purple-600 dark:hover:text-purple-300">Our Fleet</a>
                         
                         <?php if (isLoggedIn()): ?>
-                            <a href="/velo-rapido/pages/dashboard.php" class="hover:text-purple-600 dark:hover:text-purple-300">My Rentals</a>
+                            <a href="<?php echo $baseUrl; ?>/pages/dashboard.php" class="hover:text-purple-600 dark:hover:text-purple-300">My Rentals</a>
                             
                             <?php if (isAdmin()): ?>
-                                <a href="/velo-rapido/admin/dashboard.php" class="hover:text-purple-600 dark:hover:text-purple-300">Admin</a>
+                                <a href="<?php echo $baseUrl; ?>/admin/dashboard.php" class="hover:text-purple-600 dark:hover:text-purple-300">Admin</a>
                             <?php endif; ?>
                             
-                            <a href="/velo-rapido/auth/logout.php" class="hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
+                            <a href="<?php echo $baseUrl; ?>/auth/logout.php" class="hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
                         <?php else: ?>
-                            <a href="/velo-rapido/auth/login.php" class="hover:text-purple-600 dark:hover:text-purple-300">Login</a>
-                            <a href="/velo-rapido/auth/register.php" class="hover:text-purple-600 dark:hover:text-purple-300">Register</a>
+                            <a href="<?php echo $baseUrl; ?>/auth/login.php" class="hover:text-purple-600 dark:hover:text-purple-300">Login</a>
+                            <a href="<?php echo $baseUrl; ?>/auth/register.php" class="hover:text-purple-600 dark:hover:text-purple-300">Register</a>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -103,29 +117,29 @@ $isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
             <div id="mobile-menu" class="md:hidden hidden pb-4">
                 <?php if ($isAdminPage): ?>
                     <!-- Admin Navigation -->
-                    <a href="/velo-rapido/admin/dashboard.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Dashboard</a>
-                    <a href="/velo-rapido/admin/bikes/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Manage Bikes</a>
-                    <a href="/velo-rapido/admin/maintenance/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Maintenance</a>
-                    <a href="/velo-rapido/admin/users/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Users</a>
-                    <a href="/velo-rapido/admin/reports/damages.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Damage Reports</a>
-                    <a href="/velo-rapido/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Back to Site</a>
-                    <a href="/velo-rapido/auth/logout.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
+                    <a href="<?php echo $baseUrl; ?>/admin/dashboard.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Dashboard</a>
+                    <a href="<?php echo $baseUrl; ?>/admin/bikes/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Manage Bikes</a>
+                    <a href="<?php echo $baseUrl; ?>/admin/maintenance/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Maintenance</a>
+                    <a href="<?php echo $baseUrl; ?>/admin/users/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Users</a>
+                    <a href="<?php echo $baseUrl; ?>/admin/reports/damages.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Damage Reports</a>
+                    <a href="<?php echo $baseUrl; ?>/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Back to Site</a>
+                    <a href="<?php echo $baseUrl; ?>/auth/logout.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
                 <?php else: ?>
                     <!-- Regular Navigation -->
-                    <a href="/velo-rapido/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Home</a>
-                    <a href="/velo-rapido/pages/fleet.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Our Fleet</a>
+                    <a href="<?php echo $baseUrl; ?>/index.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Home</a>
+                    <a href="<?php echo $baseUrl; ?>/pages/fleet.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Our Fleet</a>
                     
                     <?php if (isLoggedIn()): ?>
-                        <a href="/velo-rapido/pages/dashboard.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">My Rentals</a>
+                        <a href="<?php echo $baseUrl; ?>/pages/dashboard.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">My Rentals</a>
                         
                         <?php if (isAdmin()): ?>
-                            <a href="/velo-rapido/admin/dashboard.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Admin</a>
+                            <a href="<?php echo $baseUrl; ?>/admin/dashboard.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Admin</a>
                         <?php endif; ?>
                         
-                        <a href="/velo-rapido/auth/logout.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
+                        <a href="<?php echo $baseUrl; ?>/auth/logout.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Logout</a>
                     <?php else: ?>
-                        <a href="/velo-rapido/auth/login.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Login</a>
-                        <a href="/velo-rapido/auth/register.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Register</a>
+                        <a href="<?php echo $baseUrl; ?>/auth/login.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Login</a>
+                        <a href="<?php echo $baseUrl; ?>/auth/register.php" class="block py-2 hover:text-purple-600 dark:hover:text-purple-300">Register</a>
                     <?php endif; ?>
                 <?php endif; ?>
             </div>
