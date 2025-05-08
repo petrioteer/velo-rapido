@@ -1,242 +1,166 @@
-# 🚲 Velo Rapido - Premium Bike Rental System
+# 🚲 Velo Rapido - Premium Bike Rental System 🚲
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![PHP](https://img.shields.io/badge/PHP-8.0+-777BB4.svg?logo=php&logoColor=white)
-![MySQL](https://img.shields.io/badge/MySQL-8.0+-4479A1.svg?logo=mysql&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-2.0+-38B2AC.svg?logo=tailwind-css&logoColor=white)
+Velo Rapido is a comprehensive bike rental management system that allows users to browse, book, and rent bikes online. The platform offers a seamless experience for both users and administrators, with features like bike management, user management, reservation tracking, and maintenance scheduling.
 
-Velo Rapido is a comprehensive web-based bike rental management system designed to streamline the process of renting bicycles, scooters, and motorcycles. With an intuitive interface for both customers and administrators, Velo Rapido offers a complete solution for bike rental businesses.
+## 📑 Table of Contents
 
-## 📋 Table of Contents
-
-- [Features](#-features)
-- [Project Structure](#-project-structure)
-- [Tech Stack](#-tech-stack)
-- [Installation & Setup](#-installation--setup)
-- [Vercel Deployment](#-vercel-deployment)
-- [Database Structure](#-database-structure)
-- [User Roles](#-user-roles)
-- [Screenshots](#-screenshots)
-- [Admin Credentials](#-admin-credentials)
-- [Contributing](#-contributing)
-- [License](#-license)
+1. [✨ Features](#features)
+2. [🏗️ Project Structure](#project-structure)
+3. [💻 Technologies Used](#technologies-used)
+4. [🗄️ Database Structure](#database-structure)
+5. [👥 User Roles](#user-roles)
+6. [🔧 Installation](#installation)
+7. [🚀 Deployment](#deployment)
+8. [🔑 Admin Credentials](#admin-credentials)
+9. [🤝 Contributing](#contributing)
+10. [📝 License](#license)
 
 ## ✨ Features
 
-### 🧑‍💼 Customer Features
+### For Users 🧑‍🚲
 
-- **User Registration & Authentication**: Secure account creation and login system
-- **Bike Browsing**: View all available bikes with filtering by type and price
-- **Online Reservation**: Book bikes for specific dates and times
-- **Payment Processing**: Secure payment management (COD and online options)
-- **User Dashboard**: View current and past bookings
-- **Cancellation**: Cancel reservations if plans change
-- **Damage Reporting**: Report bike damage after rental
+- **Browse Bike Fleet**: Users can view all available bikes with detailed specifications and photos
+- **User Registration/Login**: Secure authentication system for users to create and manage accounts
+- **Bike Reservation**: Simple booking process with date and time selection
+- **Online Payment**: Multiple payment options including card, COD, and UPI
+- **Rental Dashboard**: Track current and past rentals
+- **Damage Reporting**: Submit reports for any damages during rental period
+- **Dark/Light Mode**: User interface with theme support 🌓
 
-### 👨‍💻 Admin Features
+### For Administrators 👨‍💼
 
-- **Fleet Management**: Add, update, or remove bikes from the system
-- **Reservation Overview**: View and manage all bookings
-- **Maintenance Scheduling**: Schedule and track bike maintenance
-- **User Management**: Manage customer accounts
-- **Damage Reports**: View and address reported damages
-- **Analytics**: View rental statistics and reports
+- **Comprehensive Dashboard**: Overview of rentals, bikes, users, and maintenance
+- **Bike Management**: Add, edit, delete, and manage bike inventory
+- **User Management**: Manage user accounts and permissions
+- **Reservation Tracking**: Monitor all bookings and rental status
+- **Maintenance Scheduling**: Schedule and track bike maintenance 🔧
+- **Damage Report Management**: Review and process damage reports
 
-## 📂 Project Structure
+## 🏗️ Project Structure
 
 ```
-index.php                 # Homepage
-admin/                    # Admin panel
-  dashboard.php           # Admin dashboard overview
-  bikes/                  # Bike management
-  maintenance/            # Maintenance scheduling
-  reports/                # Reports and analytics
-  users/                  # User management
-assets/                   # Frontend assets
-  css/                    # CSS files including Tailwind
-  images/                 # Images for the site and bikes
-  js/                     # JavaScript files
-auth/                     # Authentication system
-  login.php               # User login
-  register.php            # User registration
-  logout.php              # Logout functionality
-db/                       # Database files
-  db.php                  # Database connection
-  velo_rapido.sql         # SQL schema and sample data
-includes/                 # Reusable components
-  header.php              # Page header
-  footer.php              # Page footer
-pages/                    # User-facing pages
-  fleet.php               # Bike listing page
-  book.php                # Booking form
-  dashboard.php           # User dashboard
-  payment.php             # Payment processing
-  report-damage.php       # Damage report form
+velo-rapido/
+├── index.php                 # Homepage
+├── admin/                    # Admin panel 👨‍💼
+│   ├── dashboard.php         # Admin dashboard
+│   ├── bikes/                # Bike management
+│   ├── maintenance/          # Maintenance management
+│   ├── reports/              # Damage and reservation reports
+│   └── users/                # User management
+├── assets/                   # Static assets
+│   ├── css/                  # Stylesheets 🎨
+│   └── images/               # Images including bike photos and favicon
+├── auth/                     # Authentication 🔐
+│   ├── login.php             # Login page
+│   ├── logout.php            # Logout functionality
+│   └── register.php          # Registration page
+├── db/                       # Database 🗄️
+│   ├── db.php                # Database connection and helpers
+│   └── velo_rapido.sql       # SQL schema and initial data
+├── includes/                 # Shared components
+│   ├── footer.php            # Footer component
+│   ├── header.php            # Header component with navigation
+│   └── utils.php             # Utility functions 🛠️
+└── pages/                    # User-facing pages
+    ├── book.php              # Booking page
+    ├── dashboard.php         # User dashboard
+    ├── fleet.php             # Bike catalog 🚲
+    ├── payment.php           # Payment processing 💳
+    └── report-damage.php     # Damage reporting form
 ```
 
-## 🛠 Tech Stack
+## 💻 Technologies Used
 
 - **Frontend**:
-  - HTML5
-  - [Tailwind CSS](https://tailwindcss.com/) via CDN
-  - JavaScript
-  - Font Awesome icons
+  - HTML5/CSS3 🎨
+  - Tailwind CSS for styling ✨
+  - JavaScript 📜
+  - Font Awesome for icons 🔣
   
 - **Backend**:
-  - PHP 8.0+
-  - MySQL Database (via XAMPP)
+  - PHP 7.4+ 🐘
+  - MySQL Database 🗄️
   
-- **Frameworks/Libraries**:
-  - Tailwind for responsive design
-  - Vanilla JavaScript for interactivity
-  - Leaflet.js for map functionality on booking page
-
-## 🚀 Installation & Setup
-
-### Local Setup
-
-### Prerequisites
-
-- [XAMPP](https://www.apachefriends.org/download.html) with PHP 8.0+ and MySQL
-- Web browser (Chrome, Firefox, Safari, etc.)
-
-### Step 1: Clone/Download Repository
-
-1. Download the project files to your local machine
-2. Extract the files (if downloaded as ZIP)
-3. Place the extracted folder in your XAMPP's `htdocs` directory:
-
-   ```
-   C:\xampp\htdocs\velo-rapido
-   ```
-
-### Step 2: Set Up Database
-
-1. Start XAMPP Control Panel and ensure Apache and MySQL services are running
-2. Open your browser and navigate to <http://localhost/phpmyadmin>
-3. Create a new database named `velo_rapido`
-4. Import the database schema from `db/velo_rapido.sql`:
-   - Select the newly created database
-   - Click on "Import" in the top menu
-   - Choose the file `db/velo_rapido.sql`
-   - Click "Go" to import the database structure and sample data
-
-### Step 3: Configure Database Connection
-
-1. Open `db/db.php` in a text editor
-2. Update the database credentials if different from the defaults:
-
-   ```php
-   $host = 'localhost';
-   $dbname = 'velo_rapido';
-   $username = 'root';
-   $password = '';
-   ```
-
-### Step 4: Run the Application
-
-1. Open your web browser and navigate to:
-
-   ```
-   http://localhost/velo-rapido/
-   ```
-
-2. The application should now be running and accessible from your browser
-
-### 🌐 Vercel Deployment
-
-To deploy Velo Rapido on Vercel with FreeSQLDatabase:
-
-#### Step 1: Set Up FreeSQLDatabase
-
-1. Create an account on [FreeSQLDatabase](https://www.freesqldatabase.com/)
-2. Create a new database and note your credentials
-3. Import your database schema using one of these methods:
-   - Use the phpMyAdmin interface provided by FreeSQLDatabase
-   - Run `setup_database.php` script after updating credentials
-
-#### Step 2: Install Vercel CLI
-
-```bash
-npm install -g vercel
-```
-
-#### Step 3: Configure Vercel Deployment
-
-1. Login to Vercel:
-
-```bash
-vercel login
-```
-
-2. Deploy to Vercel:
-
-```bash
-vercel
-```
-
-3. When prompted, set up the following environment variables:
-   - `DB_HOST` (Your FreeSQLDatabase host)
-   - `DB_NAME` (Your FreeSQLDatabase name)
-   - `DB_USER` (Your FreeSQLDatabase username)
-   - `DB_PASS` (Your FreeSQLDatabase password)
-
-4. After deployment, your app will be available at the Vercel-provided URL
-
-#### Step 4: Configure Production Settings
-
-1. Go to the Vercel dashboard
-2. Select your project
-3. Go to Settings > Environment Variables
-4. Add the same environment variables you used locally
-5. Set `APP_ENV=production`
+- **Deployment**:
+  - InfinityFree for web hosting ☁️
+  - FreeSQLDatabase for database hosting 🏦
 
 ## 🗄️ Database Structure
 
-The database consists of several interconnected tables:
+The database consists of the following tables:
 
-- **users**: Stores user information and credentials
-- **bikes**: Contains all bike details like type, specifications, and hourly rates
-- **reservations**: Tracks all booking information
-- **payments**: Records payment details for reservations
-- **damages**: Stores damage reports submitted by users
-- **maintenance**: Tracks scheduled and completed maintenance activities
+1. **users** 👤: Stores user information and authentication details
+   - Fields: user_id, first_name, last_name, email, password, role, phone, address, created_at, updated_at, status
+
+2. **bikes** 🚲: Contains information about all bikes available for rental
+   - Fields: bike_id, bike_name, bike_type, specifications, image_path, hourly_rate, status, created_at, updated_at
+
+3. **reservations** 📅: Tracks all bike reservations
+   - Fields: reservation_id, user_id, bike_id, start_time, end_time, pickup_location, dropoff_location, status, created_at, updated_at
+
+4. **payments** 💰: Records payment information for each reservation
+   - Fields: payment_id, reservation_id, amount, payment_method, payment_status, transaction_id, created_at, updated_at
+
+5. **damages** ⚠️: Tracks damage reports submitted by users
+   - Fields: damage_id, bike_id, user_id, description, image_path, status, reported_at, updated_at
+
+6. **maintenance** 🔧: Manages bike maintenance schedules
+   - Fields: maintenance_id, bike_id, description, maintenance_type, start_date, end_date, completion_date, status, created_at, updated_at
 
 ## 👥 User Roles
 
-### Customer
+The system has two primary user roles:
 
-- Can register and log in
-- Can browse and book available bikes
-- Can view and manage their own reservations
-- Can report bike damages
+1. **Regular Users** 🧑‍🚲:
+   - Browse and book bikes
+   - Manage their reservations
+   - Report damages
+   - View rental history
 
-### Administrator
+2. **Administrators** 👨‍💼:
+   - All regular user privileges
+   - Manage bike inventory
+   - Process reservations
+   - Schedule maintenance
+   - Handle damage reports
+   - Manage user accounts
 
-- Can manage the entire bike fleet
-- Can view and update all reservations
-- Can manage users
-- Can schedule maintenance
-- Can review damage reports
+## 🔧 Installation
+
+1. Clone the repository to your local machine or server 📥
+2. Create a MySQL database and import the `db/velo_rapido.sql` file 🗄️
+3. Configure your database connection in `db/db.php` ⚙️
+4. Ensure your web server has PHP 7.4+ installed 🐘
+5. Navigate to the project URL in your browser 🌐
+
+## 🚀 Deployment
+
+The Velo Rapido project is currently deployed at:
+
+- **Website**: [http://velo-rapido.wuaze.com/](http://velo-rapido.wuaze.com/) 🌐
+- **Host**: InfinityFree ☁️
+- **Database**: FreeSQLDatabase 🏦
 
 ## 🔑 Admin Credentials
 
-To access the admin panel, use these credentials:
+To access the admin panel, use the following credentials:
 
-- **Email**: <admin@velorapido.com>
-- **Password**: admin@123
+- **Email**: <admin@velorapido.com> 📧
+- **Password**: admin123 🔒
 
 ## 🤝 Contributing
 
-Contributions to improve Velo Rapido are welcome. Please feel free to submit a Pull Request.
+Contributions to Velo Rapido are welcome! To contribute:
 
-## 📄 License
+1. Fork the repository 🍴
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`) 🌿
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`) ✅
+4. Push to the branch (`git push origin feature/AmazingFeature`) 📤
+5. Open a Pull Request 🔍
+
+## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
----
-
-© 2025 Velo Rapido. All Rights Reserved. 🚴‍♂️✨
 
 ---
 
