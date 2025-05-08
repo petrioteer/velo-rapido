@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once '../includes/utils.php';
+
+// Get base URL
+$baseUrl = getBaseUrl();
 
 // Clear all session variables
 $_SESSION = array();
@@ -17,6 +21,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirect to login page
-header("Location: /velo-rapido/auth/login.php");
+header("Location: " . $baseUrl . "/auth/login.php");
 exit();
 ?>

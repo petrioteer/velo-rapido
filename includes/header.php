@@ -4,25 +4,26 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include database connection
+// Include database connection and utility functions
 require_once __DIR__ . '/../db/db.php';
-
-// Helper function to get base URL for Vercel deployment
-function getBaseUrl() {
-    // For Vercel deployment
-    if (isset($_SERVER['VERCEL_URL'])) {
-        return 'https://' . $_SERVER['VERCEL_URL'];
-    }
-    
-    // For local development, keep original path
-    return '/velo-rapido';
-}
+require_once __DIR__ . '/utils.php';
 
 // Get base URL
 $baseUrl = getBaseUrl();
 
 // Check if the current page is in the admin directory
 $isAdminPage = strpos($_SERVER['PHP_SELF'], '/admin/') !== false;
+
+// Create site root URL for use in both relative and absolute paths
+$siteRoot = '';
+if (!empty($baseUrl)) {
+    $siteRoot = $baseUrl;
+} else {
+    // For production, build from server variables
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || 
+                $_SERVER['SERVER_PORT'] == 443 ? "https://" : "http://";
+    $siteRoot = $protocol . $_SERVER['HTTP_HOST'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="dark">

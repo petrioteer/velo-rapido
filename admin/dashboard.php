@@ -2,17 +2,7 @@
 // Start processing before including the header file
 session_start();
 require_once '../db/db.php';
-
-// Function to ensure user is admin
-if (!function_exists('requireAdmin')) {
-    function requireAdmin() {
-        if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
-            $_SESSION['error_message'] = "You must be an administrator to access this page";
-            header("Location: ../auth/login.php");
-            exit();
-        }
-    }
-}
+require_once '../includes/utils.php';
 
 // Require admin privileges to access this page
 requireAdmin();

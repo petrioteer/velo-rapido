@@ -4,10 +4,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 require_once '../db/db.php';
+require_once '../includes/utils.php';
+
+// Get base URL
+$baseUrl = getBaseUrl();
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    header("Location: /velo-rapido/index.php");
+    header("Location: " . $baseUrl . "/index.php");
     exit();
 }
 
@@ -53,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)");
             if ($stmt->execute([$first_name, $last_name, $email, $hashed_password])) {
                 $_SESSION['flash_message'] = "Registration successful! You can now log in.";
-                header("Location: login.php");
+                header("Location: " . $baseUrl . "/auth/login.php");
                 exit();
             } else {
                 $errors[] = "Registration failed. Please try again.";

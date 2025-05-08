@@ -1,0 +1,27 @@
+RewriteEngine On
+
+# Handle request to the root
+RewriteRule ^$ index.php [L]
+
+# Rewrite URLs for clean URLs to their PHP files
+RewriteRule ^login/?$ auth/login.php [L]
+RewriteRule ^register/?$ auth/register.php [L]
+RewriteRule ^logout/?$ auth/logout.php [L]
+RewriteRule ^fleet/?$ pages/fleet.php [L]
+RewriteRule ^book/?$ pages/book.php [L]
+RewriteRule ^dashboard/?$ pages/dashboard.php [L]
+RewriteRule ^report-damage/?$ pages/report-damage.php [L]
+RewriteRule ^payment/?$ pages/payment.php [L]
+RewriteRule ^admin/?$ admin/dashboard.php [L]
+
+# Don't rewrite requests for real files or directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Otherwise, go to index.php
+RewriteRule . index.php [L]
+
+# PHP settings
+php_flag display_errors on
+php_value upload_max_filesize 10M
+php_value post_max_size 10M

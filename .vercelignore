@@ -1,6 +1,0 @@
-.env
-.vercel
-.vercel_init_completed
-.git
-.github
-node_modules

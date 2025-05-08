@@ -4,10 +4,14 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 require_once '../db/db.php';
+require_once '../includes/utils.php';
+
+// Get base URL
+$baseUrl = getBaseUrl();
 
 // Redirect if already logged in
 if (isLoggedIn()) {
-    header("Location: /velo-rapido/index.php");
+    header("Location: " . $baseUrl . "/index.php");
     exit();
 }
 
@@ -32,14 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['first_name'] = $user['first_name'];
                 $_SESSION['last_name'] = $user['last_name'];
                 $_SESSION['user_role'] = $user['role'];
+                $_SESSION['is_admin'] = ($user['role'] === 'admin'); // Add is_admin flag
                 
                 $_SESSION['flash_message'] = "Login successful! Welcome back, " . $user['first_name'];
                 
                 // Redirect based on user role
                 if ($user['role'] === 'admin') {
-                    header("Location: /velo-rapido/admin/dashboard.php");
+                    header("Location: " . $baseUrl . "/admin/dashboard.php");
                 } else {
-                    header("Location: /velo-rapido/index.php");
+                    header("Location: " . $baseUrl . "/index.php");
                 }
                 exit();
             } else {
