@@ -250,9 +250,10 @@ The system has two primary user roles:
 
 The Velo Rapido project is currently deployed at:
 
-- **Website**: [http://velo-rapido.wuaze.com/](http://velo-rapido.wuaze.com/) 🌐
+- **Website**: [https://velo-rapido.wuaze.com/](https://velo-rapido.wuaze.com/) 🔒🌐
 - **Host**: InfinityFree ☁️
 - **Database**: FreeSQLDatabase 🏦
+- **Security**: SSL-secured with HTTPS protocol for data protection
 
 ## 🔑 Admin Credentials
 
