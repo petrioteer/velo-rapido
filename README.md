@@ -87,25 +87,138 @@ velo-rapido/
 
 ## 🗄️ Database Structure
 
-The database consists of the following tables:
+The database consists of six main tables with the following structure:
 
-1. **users** 👤: Stores user information and authentication details
-   - Fields: user_id, first_name, last_name, email, password, role, phone, address, created_at, updated_at, status
+### 👤 Users Table
 
-2. **bikes** 🚲: Contains information about all bikes available for rental
-   - Fields: bike_id, bike_name, bike_type, specifications, image_path, hourly_rate, status, created_at, updated_at
+```
+┌─────────────┬─────────────────┬─────────────────────────────────┐
+│ Column      │ Type            │ Description                     │
+├─────────────┼─────────────────┼─────────────────────────────────┤
+│ user_id     │ INT (PK)        │ Unique identifier               │
+│ first_name  │ VARCHAR(50)     │ User's first name               │
+│ last_name   │ VARCHAR(50)     │ User's last name                │
+│ email       │ VARCHAR(100)    │ User's email (unique)           │
+│ password    │ VARCHAR(255)    │ Hashed password                 │
+│ role        │ ENUM            │ 'user' or 'admin'               │
+│ phone       │ VARCHAR(20)     │ Contact number                  │
+│ address     │ TEXT            │ User's address                  │
+│ created_at  │ TIMESTAMP       │ Account creation time           │
+│ updated_at  │ DATETIME        │ Last update time                │
+│ status      │ ENUM            │ 'active' or 'disabled'          │
+└─────────────┴─────────────────┴─────────────────────────────────┘
+```
 
-3. **reservations** 📅: Tracks all bike reservations
-   - Fields: reservation_id, user_id, bike_id, start_time, end_time, pickup_location, dropoff_location, status, created_at, updated_at
+### 🚲 Bikes Table
 
-4. **payments** 💰: Records payment information for each reservation
-   - Fields: payment_id, reservation_id, amount, payment_method, payment_status, transaction_id, created_at, updated_at
+```
+┌──────────────┬─────────────────┬─────────────────────────────────┐
+│ Column       │ Type            │ Description                     │
+├──────────────┼─────────────────┼─────────────────────────────────┤
+│ bike_id      │ INT (PK)        │ Unique identifier               │
+│ bike_name    │ VARCHAR(100)    │ Name of the bike                │
+│ bike_type    │ VARCHAR(50)     │ Type (MTB, City, etc.)          │
+│ specifications│ TEXT           │ Detailed specifications         │
+│ image_path   │ VARCHAR(255)    │ Path to bike image              │
+│ hourly_rate  │ DECIMAL(10,2)   │ Cost per hour                   │
+│ status       │ ENUM            │ 'available', 'reserved', etc.   │
+│ created_at   │ TIMESTAMP       │ When bike was added             │
+│ updated_at   │ DATETIME        │ Last update time                │
+└──────────────┴─────────────────┴─────────────────────────────────┘
+```
 
-5. **damages** ⚠️: Tracks damage reports submitted by users
-   - Fields: damage_id, bike_id, user_id, description, image_path, status, reported_at, updated_at
+### 📅 Reservations Table
 
-6. **maintenance** 🔧: Manages bike maintenance schedules
-   - Fields: maintenance_id, bike_id, description, maintenance_type, start_date, end_date, completion_date, status, created_at, updated_at
+```
+┌─────────────────┬─────────────────┬─────────────────────────────────┐
+│ Column          │ Type            │ Description                     │
+├─────────────────┼─────────────────┼─────────────────────────────────┤
+│ reservation_id  │ INT (PK)        │ Unique identifier               │
+│ user_id         │ INT (FK)        │ Reference to users table        │
+│ bike_id         │ INT (FK)        │ Reference to bikes table        │
+│ start_time      │ DATETIME        │ Rental start time               │
+│ end_time        │ DATETIME        │ Rental end time                 │
+│ pickup_location │ VARCHAR(255)    │ Where to pick up the bike       │
+│ dropoff_location│ VARCHAR(255)    │ Where to return the bike        │
+│ status          │ ENUM            │ 'pending', 'confirmed', etc.    │
+│ created_at      │ TIMESTAMP       │ When reservation was made       │
+│ updated_at      │ DATETIME        │ Last update time                │
+└─────────────────┴─────────────────┴─────────────────────────────────┘
+```
+
+### 💰 Payments Table
+
+```
+┌──────────────┬─────────────────┬─────────────────────────────────┐
+│ Column       │ Type            │ Description                     │
+├──────────────┼─────────────────┼─────────────────────────────────┤
+│ payment_id   │ INT (PK)        │ Unique identifier               │
+│ reservation_id│ INT (FK)       │ Reference to reservations table │
+│ amount       │ DECIMAL(10,2)   │ Payment amount                  │
+│ payment_method│ ENUM           │ 'card', 'cod', 'upi'            │
+│ payment_status│ ENUM           │ 'pending', 'completed', etc.    │
+│ transaction_id│ VARCHAR(255)   │ External transaction reference  │
+│ created_at   │ TIMESTAMP       │ When payment was made           │
+│ updated_at   │ DATETIME        │ Last update time                │
+└──────────────┴─────────────────┴─────────────────────────────────┘
+```
+
+### ⚠️ Damages Table
+
+```
+┌────────────┬─────────────────┬─────────────────────────────────┐
+│ Column     │ Type            │ Description                     │
+├────────────┼─────────────────┼─────────────────────────────────┤
+│ damage_id  │ INT (PK)        │ Unique identifier               │
+│ bike_id    │ INT (FK)        │ Reference to bikes table        │
+│ user_id    │ INT (FK)        │ Reference to users table        │
+│ description│ TEXT            │ Details of the damage           │
+│ image_path │ VARCHAR(255)    │ Path to damage photos           │
+│ status     │ ENUM            │ 'reported', 'resolved', etc.    │
+│ reported_at│ TIMESTAMP       │ When damage was reported        │
+│ updated_at │ DATETIME        │ Last update time                │
+└────────────┴─────────────────┴─────────────────────────────────┘
+```
+
+### 🔧 Maintenance Table
+
+```
+┌────────────────┬─────────────────┬─────────────────────────────────┐
+│ Column         │ Type            │ Description                     │
+├────────────────┼─────────────────┼─────────────────────────────────┤
+│ maintenance_id │ INT (PK)        │ Unique identifier               │
+│ bike_id        │ INT (FK)        │ Reference to bikes table        │
+│ description    │ TEXT            │ Maintenance details             │
+│ maintenance_type│ VARCHAR(50)    │ Type of maintenance             │
+│ start_date     │ DATE            │ When maintenance begins         │
+│ end_date       │ DATE            │ Expected completion date        │
+│ completion_date│ DATE            │ Actual completion date          │
+│ status         │ ENUM            │ 'scheduled', 'in_progress', etc.│
+│ created_at     │ TIMESTAMP       │ When record was created         │
+│ updated_at     │ DATETIME        │ Last update time                │
+└────────────────┴─────────────────┴─────────────────────────────────┘
+```
+
+### Relationships Diagram
+
+```
+┌─────────┐     ┌──────────────┐     ┌─────────┐
+│  Users  │──┐  │ Reservations │  ┌──│  Bikes  │
+└─────────┘  └─>│              │<─┘  └─────────┘
+     │          └──────────────┘          │
+     │                  │                 │
+     │                  v                 │
+     │          ┌──────────────┐          │
+     │          │   Payments   │          │
+     │          └──────────────┘          │
+     │                                    │
+     │                                    │
+     └───────┐                 ┌──────────┘
+             v                 v
+       ┌──────────┐     ┌────────────┐
+       │ Damages  │     │ Maintenance│
+       └──────────┘     └────────────┘
+```
 
 ## 👥 User Roles
 
@@ -145,8 +258,8 @@ The Velo Rapido project is currently deployed at:
 
 To access the admin panel, use the following credentials:
 
-- **Email**: <admin@velorapido.com> 📧
-- **Password**: admin123 🔒
+- **Email**: <admin@velorapido.com>
+- **Password**: admin123
 
 ## 🤝 Contributing
 
